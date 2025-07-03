@@ -1,19 +1,24 @@
 // Listen for messages from background script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'parseThread') {
-    try {
-      // Call the parseThread function from parseThread.js
-      const result = parseThread();
-      
-      if (result) {
-        sendResponse({ success: true });
-      } else {
-        sendResponse({ success: false, error: 'No thread data found' });
-      }
-    } catch (error) {
-      console.error('Error parsing thread:', error);
-      sendResponse({ success: false, error: error.message });
-    }
+    (async () => {
+        try {
+        // Call the parseThread function from parseThread.js
+        const result = await parseThread();
+        
+        if (result) {
+            sendResponse({ success: true });
+            showNotification("Copy success!");
+        } else {
+            sendResponse({ success: false, error: 'No thread data found' });
+            showNotification("No thread data found.", type="failure");
+        }
+        } catch (error) {
+        console.error('Error parsing thread:', error);
+        showNotification("Error copying thread.", type="failure");
+        sendResponse({ success: false, error: error.message });
+        }
+    })();
   }
   return true; // Keep message channel open for async response
 });
