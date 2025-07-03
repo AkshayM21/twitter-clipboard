@@ -94,7 +94,7 @@ async function parseThread(){
             const tweetBodies = tweet.querySelectorAll('div[data-testid="tweetText"]');
             //in default case length of tweetBodies =1, so this just runs once
             for(var i=0; i<tweetBodies.length; i++){
-                var username = (i>0 ? "Quoted Tweet: " : "") + usernames[i].innerText.split("\n")[0];
+                var username = (i>0 ? "Quoted Tweet: " : "") + usernames[i].innerText.split("\n").slice(0,2).join(" (")+")";
                 var tweetBody = tweetBodies[i];
                 var textBody = tweetBody.innerText.trim().replace(/\s+/g, ' ');
 

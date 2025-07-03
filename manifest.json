@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Twitter Clipboard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Click to parse and copy Twitter/X threads to clipboard",
   "permissions": [
     "activeTab",
