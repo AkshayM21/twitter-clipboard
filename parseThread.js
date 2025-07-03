@@ -68,8 +68,12 @@ async function parseThread(){
         });
         await new Promise(r => setTimeout(r, 1000));
     }
-
+    const url = window.location.href;
+    const timestamp = new Date().toLocaleString();
+    
     const extractedTexts = [];
+    
+    extractedTexts.push(`Thread from: ${url}\nCaptured: ${timestamp}\n`);
     const prevTexts = new Set([]);
     var endReached = false;
     var iters = 0;
@@ -153,6 +157,7 @@ async function parseThread(){
                 console.log(allText);
                 console.log('='.repeat(60));
                 alert("Try copy again!");
+                return false;
             }
         });
     } else if (!copyResult) {
@@ -161,5 +166,12 @@ async function parseThread(){
         console.log(allText);
         console.log('='.repeat(60));
         alert("Try copy again!");
+        return false;
     }
+    return true;
+}
+
+// Make the function available globally for the content script
+if (typeof window !== 'undefined') {
+  window.parseThread = parseThread;
 }
